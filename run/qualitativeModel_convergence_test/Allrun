@@ -1,0 +1,17 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+runApplication blockMesh
+
+paraFoam -builtin -touch
+
+# runApplication setFields 
+
+## Sequential
+runApplication $(getApplication)
+
+runApplication -s sampleAlongLine foamPostProcess -latestTime -func sampleAlongLine
+
+#------------------------------------------------------------------------------

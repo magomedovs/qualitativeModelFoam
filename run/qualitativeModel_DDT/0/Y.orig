@@ -1,0 +1,99 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      Y;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+// internalField   uniform 0;
+
+internalField   #codeStream
+{
+
+    codeInclude
+    #{
+        #include "volFields.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+
+    codeLibs
+    #{
+        -lmeshTools \
+        -lfiniteVolume
+    #};
+
+    code
+    #{
+        const IOdictionary  &d      = static_cast<const IOdictionary&>(dict);
+        const fvMesh        &mesh   = refCast<const fvMesh>(d.db());
+
+        scalarField Yfield(mesh.nCells(), 0.);
+
+        forAll(Yfield, i)
+        {
+            const scalar x = mesh.C()[i][0];
+            
+            // const scalar center = 5.;
+            // const scalar p = -pow(x - center, 2) / 2.;
+            // Yfield[i] = exp(p);
+            
+            // Yfield[i] = sin(x * 2.*constant::mathematical::pi / 10.);
+            // Yfield[i] = tanh(x-5.);
+            
+            // Yfield[i] = 0.5*(1 - tanh(x-3.));
+            
+            if (x < 10)
+            {
+                Yfield[i] = 1; //0 1
+            }
+            else
+            {
+                Yfield[i] = 0.;
+            }
+        }
+        writeEntry(os, "", Yfield);
+    #};
+};
+
+boundaryField
+{
+    left
+    {
+        type            zeroGradient;
+
+        // type            fixedValue;
+        // value           uniform     1;
+    }
+
+    right
+    {
+        type            zeroGradient;
+
+        // type            fixedValue;
+        // value           uniform     0;  //$internalField;
+    }
+
+    ".*"
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //

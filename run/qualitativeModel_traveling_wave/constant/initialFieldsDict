@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      initialFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+Tinit
+{
+    type            table;
+    format          foam;        // Input format
+    nHeaderLine     0;          // Number of header lines
+    columns         (0 1);      // Column indices
+    separator       " ";        // Optional (defaults to ",")
+    mergeSeparators yes;        // Merge multiple separators
+    outOfBounds     clamp;      // Optional out-of-bounds handling
+    // file            "initialFieldsData/weak_detonation_data_OF_delta_0.001_Tl_3.0/Tprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Tprofile.txt";
+    file            "initialFieldsData/detonation_data_OF_delta_0.001_Tl_4.3/Tprofile.txt";
+    interpolationScheme linear;     // Optional interpolation scheme
+}
+
+Uinit
+{
+    type            table;
+    format          foam;        // Input format
+    nHeaderLine     0;          // Number of header lines
+    columns         (0 1);      // Column indices
+    separator       " ";        // Optional (defaults to ",")
+    mergeSeparators yes;        // Merge multiple separators
+    outOfBounds     clamp;      // Optional out-of-bounds handling
+    // file            "initialFieldsData/weak_detonation_data_OF_delta_0.001_Tl_3.0/Uprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Uprofile.txt";
+    file            "initialFieldsData/detonation_data_OF_delta_0.001_Tl_4.3/Uprofile.txt";
+    interpolationScheme linear;     // Optional interpolation scheme
+}
+
+Yinit
+{
+    type            table;
+    format          foam;        // Input format
+    nHeaderLine     0;          // Number of header lines
+    columns         (0 1);      // Column indices
+    separator       " ";        // Optional (defaults to ",")
+    mergeSeparators yes;        // Merge multiple separators
+    outOfBounds     clamp;      // Optional out-of-bounds handling
+    // file            "initialFieldsData/weak_detonation_data_OF_delta_0.001_Tl_3.0/Yprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Yprofile.txt";
+    file            "initialFieldsData/detonation_data_OF_delta_0.001_Tl_4.3/Yprofile.txt";
+    interpolationScheme linear;     // Optional interpolation scheme
+}
+// ************************************************************************* //

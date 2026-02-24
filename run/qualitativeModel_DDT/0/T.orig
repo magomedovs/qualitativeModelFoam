@@ -1,0 +1,101 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+// internalField   uniform 0.3;
+
+internalField   #codeStream
+{
+
+    codeInclude
+    #{
+        #include "volFields.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+
+    codeLibs
+    #{
+        -lmeshTools \
+        -lfiniteVolume
+    #};
+
+    code
+    #{
+        const IOdictionary  &d      = static_cast<const IOdictionary&>(dict);
+        const fvMesh        &mesh   = refCast<const fvMesh>(d.db());
+
+        scalarField Tfield(mesh.nCells(), 0.);
+
+        forAll(Tfield, i)
+        {
+            const scalar x = mesh.C()[i][0];
+
+            // const scalar center = 5.;
+            // const scalar p = -pow(x - center, 2) / 2.;
+            // Tfield[i] = exp(p);
+            
+            // Tfield[i] = sin(x * 2.*constant::mathematical::pi / 10.);
+            // Tfield[i] = tanh(x-5.);
+
+            const scalar Tleft  = 1.63; //1.4655
+            const scalar Tright = 0.9; // 0.825
+            // Tfield[i] = Tright + (Tleft - Tright) * 0.5*(1 - tanh(x-3.));
+            
+            if (x < 10)
+            {
+                Tfield[i] = Tleft;
+            }
+            else
+            {
+                Tfield[i] = Tright;
+            }
+        }
+        writeEntry(os, "", Tfield);
+    #};
+};
+
+boundaryField
+{
+    left
+    {
+        type            zeroGradient;
+
+        // type            fixedValue;
+        // value           $internalField;
+    }
+
+    right
+    {
+        type            zeroGradient;
+
+        // type            fixedValue;
+        // value           $internalField;
+    }
+
+    ".*"
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //
