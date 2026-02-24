@@ -1,0 +1,26 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      parameters;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+delta                       0.01;   //0.0001; //0.1;
+epsilon                     0.1;
+Pr                          0.75;   // Prandtl number
+Le                          1.0;    // Lewis number
+k                           1.0;    // Constant of reaction rate
+theta                       1.65;   // Activation energy
+q                           1.7;    // Heat release
+T_ign                       1.0;    // Ignition Temperature
+
+// ************************************************************************* //

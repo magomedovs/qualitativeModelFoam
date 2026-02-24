@@ -1,0 +1,141 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+// internalField   uniform 0.3;
+
+internalField #codeStream
+{
+    code
+    #{        
+        const IOdictionary& d       = static_cast<const IOdictionary&>(dict);
+        const fvMesh&       mesh    = refCast<const fvMesh>(d.db());
+        
+        Info<< "Reading initialFieldsDict\n" << endl;
+        IOdictionary myCustomDict
+        (
+            IOobject
+            (
+                "initialFieldsDict",
+                mesh.time().constant(), //"constant",
+                mesh,
+                IOobject::MUST_READ,
+                IOobject::NO_WRITE
+            )
+        );
+        const dictionary& dataDict = myCustomDict.subDict("Tinit");
+        const word fileFormat = dataDict.lookup<word>("format");
+        Info<< "Reading " << fileFormat << " file ...\n" << endl; 
+        
+        autoPtr<Function1<scalar>> InitCondition(Function1<scalar>::New("type", {unitAny, unitAny}, dataDict));
+
+        scalarField fld(mesh.nCells(), 0);
+        forAll(fld, i)
+        {
+            // const scalar y = mesh.C()[i][1];
+            const scalar x = mesh.C()[i][0];
+            fld[i] = InitCondition->value(x);
+        }
+
+        writeEntry(os, "", fld);
+    #};
+
+    codeInclude
+    #{
+        #include "volFields.H"
+        #include "Function1.H"
+    #};
+
+    codeOptions
+    #{
+        -I$(LIB_SRC)/finiteVolume/lnInclude \
+        -I$(LIB_SRC)/meshTools/lnInclude
+    #};
+
+    codeLibs
+    #{
+        -lmeshTools \
+        -lfiniteVolume
+    #};
+};
+
+boundaryField
+{
+    // left
+    // {
+    //     type            zeroGradient;
+
+    //     // type            fixedValue;
+    //     // value           $internalField;
+    // }
+
+    left
+    {
+        type    codedFixedValue;
+        value   uniform 0;
+        name    oscillatingTemperature;   // name of generated BC
+
+        code
+        #{
+            const fvPatch& boundaryPatch = patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            scalarField& field = *this;
+        
+            scalar A = 0.1;
+            scalar freq = 5e-2;
+            
+            // scalar T_left = 2.0; // for T_l = 2.0. Should be taken from the file with the computed traveling-wave profile
+    
+            scalar T_left = 2.55; // for T_l = 2.55. Should be taken from the file with the computed traveling-wave profile
+
+            scalar t = this->db().time().value();
+            if (t >= 0.0)
+            {
+                forAll(Cf, faceI)
+                {
+                    field[faceI] = T_left + A * sin(t * freq * 2 * constant::mathematical::pi);
+                }
+            }
+        #};
+
+        // codeInclude
+        // #{
+        //    #include "fvCFD.H"
+        // #};
+
+        // codeOptions
+        // #{
+        //    -I$(LIB_SRC)/finiteVolume/lnInclude
+        // #};
+    }
+
+    right
+    {
+        type            zeroGradient;
+
+        // type            fixedValue;
+        // value           $internalField;
+    }
+
+    ".*"
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //

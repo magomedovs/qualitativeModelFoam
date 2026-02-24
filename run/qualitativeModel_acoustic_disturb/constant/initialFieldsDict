@@ -1,0 +1,58 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      initialFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+Tinit
+{
+    type            table;
+    format          foam;        // Input format
+    nHeaderLine     0;          // Number of header lines
+    columns         (0 1);      // Column indices
+    separator       " ";        // Optional (defaults to ",")
+    mergeSeparators yes;        // Merge multiple separators
+    outOfBounds     clamp;      // Optional out-of-bounds handling
+    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Tprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Tprofile.txt";
+    interpolationScheme linear;     // Optional interpolation scheme
+}
+
+Uinit
+{
+    type            table;
+    format          foam;        // Input format
+    nHeaderLine     0;          // Number of header lines
+    columns         (0 1);      // Column indices
+    separator       " ";        // Optional (defaults to ",")
+    mergeSeparators yes;        // Merge multiple separators
+    outOfBounds     clamp;      // Optional out-of-bounds handling
+    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Uprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Uprofile.txt";
+    interpolationScheme linear;     // Optional interpolation scheme
+}
+
+Yinit
+{
+    type            table;
+    format          foam;        // Input format
+    nHeaderLine     0;          // Number of header lines
+    columns         (0 1);      // Column indices
+    separator       " ";        // Optional (defaults to ",")
+    mergeSeparators yes;        // Merge multiple separators
+    outOfBounds     clamp;      // Optional out-of-bounds handling
+    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Yprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Yprofile.txt";
+    interpolationScheme linear;     // Optional interpolation scheme
+}
+// ************************************************************************* //
