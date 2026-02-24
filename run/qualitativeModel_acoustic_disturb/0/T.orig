@@ -95,7 +95,7 @@ boundaryField
             const vectorField& Cf = boundaryPatch.Cf();
             scalarField& field = *this;
         
-            scalar A = 0.1;
+            scalar A = 0.01;
             scalar freq = 5e-2;
             
             // scalar T_left = 2.0; // for T_l = 2.0. Should be taken from the file with the computed traveling-wave profile
