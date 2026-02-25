@@ -1,0 +1,20 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+
+// TLeft     2.0;
+TLeft     2.55;
+
+// uLeft -0.03493914248149035; // for T_l = 2.0, delta = 0.01
+uLeft -0.05125323528353306; // for T_l = 2.55, delta = 0.01
+// uLeft -0.03210013212925395; // for T_l = 2.0, delta = 0.001
+// uLeft -0.03664431841189046; // for T_l = 2.55, delta = 0.001
+
+amplitude     0.01;
+frequency     5e-3;
+

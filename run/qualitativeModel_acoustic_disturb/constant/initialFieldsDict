@@ -23,8 +23,10 @@ Tinit
     separator       " ";        // Optional (defaults to ",")
     mergeSeparators yes;        // Merge multiple separators
     outOfBounds     clamp;      // Optional out-of-bounds handling
-    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Tprofile.txt";
     // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Tprofile.txt";
+    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Tprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.001_Tl_2.0/Tprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.001_Tl_2.55/Tprofile.txt";
     interpolationScheme linear;     // Optional interpolation scheme
 }
 
@@ -37,8 +39,10 @@ Uinit
     separator       " ";        // Optional (defaults to ",")
     mergeSeparators yes;        // Merge multiple separators
     outOfBounds     clamp;      // Optional out-of-bounds handling
-    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Uprofile.txt";
     // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Uprofile.txt";
+    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Uprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.001_Tl_2.0/Uprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.001_Tl_2.55/Uprofile.txt";
     interpolationScheme linear;     // Optional interpolation scheme
 }
 
@@ -51,8 +55,10 @@ Yinit
     separator       " ";        // Optional (defaults to ",")
     mergeSeparators yes;        // Merge multiple separators
     outOfBounds     clamp;      // Optional out-of-bounds handling
-    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Yprofile.txt";
     // file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.0/Yprofile.txt";
+    file            "initialFieldsData/flame_data_OF_delta_0.01_Tl_2.55/Yprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.001_Tl_2.0/Yprofile.txt";
+    // file            "initialFieldsData/flame_data_OF_delta_0.001_Tl_2.55/Yprofile.txt";
     interpolationScheme linear;     // Optional interpolation scheme
 }
 // ************************************************************************* //

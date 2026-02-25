@@ -73,6 +73,8 @@ internalField #codeStream
     #};
 };
 
+#include "${FOAM_CASE}/0/bcParams"
+
 boundaryField
 {
     // left
@@ -87,7 +89,7 @@ boundaryField
     left
     {
         type    codedFixedValue;
-        value   uniform 0;
+        value   uniform     $uLeft;
         name    oscillatingVelocity;   // name of generated BC
 
         code
@@ -96,12 +98,17 @@ boundaryField
             const vectorField& Cf = boundaryPatch.Cf();
             scalarField& field = *this;
         
-            scalar A = 0.01;
-            scalar freq = 5e-2;
+            // scalar A = 0.01;
+            // scalar freq = 5e-3;
+            scalar A     = $amplitude;
+            scalar freq  = $frequency;
             
-            // scalar u_left = -0.03493914248149035; // for T_l = 2.0. Should be taken from the file with the computed traveling-wave profile
-    
-            scalar u_left = -0.05125323528353306; // for T_l = 2.55. Should be taken from the file with the computed traveling-wave profile
+            // scalar u_left = -0.03493914248149035; // for T_l = 2.0, delta = 0.01
+            // scalar u_left = -0.05125323528353306; // for T_l = 2.55, delta = 0.01
+            // scalar u_left = -0.03210013212925395; // for T_l = 2.0, delta = 0.001
+            // scalar u_left = -0.03664431841189046; // for T_l = 2.55, delta = 0.001
+            
+            scalar u_left = $uLeft; // for T_l = 2.55, delta = 0.001
 
             scalar t = this->db().time().value();
             if (t >= 0.0)
