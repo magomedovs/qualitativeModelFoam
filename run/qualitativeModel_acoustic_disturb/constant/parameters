@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-delta                       0.01;   //0.0001; //0.1;
+delta                       0.001;   //0.0001; //0.1;
 epsilon                     0.1;
 Pr                          0.75;   // Prandtl number
 Le                          1.0;    // Lewis number

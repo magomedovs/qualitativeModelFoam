@@ -8,13 +8,15 @@
 
 
 // TLeft     2.0;
-TLeft     2.55;
+// TLeft     2.55;
+TLeft     2.58;
 
 // uLeft -0.03493914248149035; // for T_l = 2.0, delta = 0.01
-uLeft -0.05125323528353306; // for T_l = 2.55, delta = 0.01
+// uLeft -0.05125323528353306; // for T_l = 2.55, delta = 0.01
 // uLeft -0.03210013212925395; // for T_l = 2.0, delta = 0.001
 // uLeft -0.03664431841189046; // for T_l = 2.55, delta = 0.001
+uLeft -0.029368054915205638; // for T_l = 2.58, delta = 0.001
 
 amplitude     0.01;
-frequency     5e-3;
+frequency     2e-2;
 
